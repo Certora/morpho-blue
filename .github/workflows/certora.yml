@@ -33,7 +33,7 @@ jobs:
             certora/confs/StayHealthy.conf
             certora/confs/Transfer.conf
           solc-versions: 0.8.19
-          job-name: "Certora Run"
+          job-name: "Certora Prover Run"
           certora-key: ${{ secrets.CERTORAKEY }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
