@@ -35,6 +35,5 @@ jobs:
           solc-versions: 0.8.19
           job-name: "Certora Run"
           certora-key: ${{ secrets.CERTORAKEY }}
-          compilation-steps-only: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
