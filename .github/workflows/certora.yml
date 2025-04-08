@@ -10,46 +10,31 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-
-      matrix:
-        conf:
-          - AccrueInterest
-          - AssetsAccounting
-          - ConsistentState
-          - ExactMath
-          - ExchangeRate
-          - Health
-          - LibSummary
-          - LiquidateBuffer
-          - Liveness
-          - Reentrancy
-          - Reverts
-          - StayHealthy
-          - Transfer
-
+    permissions:
+      contents: read
+      statuses: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
+      - uses: Certora/certora-run-action@v1
         with:
-          submodules: recursive
-
-      - name: Install python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ">=3.9"
-
-      - name: Install certora
-        run: pip install certora-cli
-
-      - name: Install solc
-        run: |
-          wget https://github.com/ethereum/solidity/releases/download/v0.8.19/solc-static-linux
-          chmod +x solc-static-linux
-          sudo mv solc-static-linux /usr/local/bin/solc-0.8.19
-
-      - name: Verify ${{ matrix.conf }}
-        run: certoraRun certora/confs/${{ matrix.conf }}.conf
+          configurations: |-
+            certora/confs/AccrueInterest.conf
+            certora/confs/AssetsAccounting.conf
+            certora/confs/ConsistentState.conf
+            certora/confs/ExactMath.conf
+            certora/confs/ExchangeRate.conf
+            certora/confs/Health.conf
+            certora/confs/LibSummary.conf
+            certora/confs/LiquidateBuffer.conf
+            certora/confs/Liveness.conf
+            certora/confs/Reentrancy.conf
+            certora/confs/Reverts.conf
+            certora/confs/StayHealthy.conf
+            certora/confs/Transfer.conf
+          solc-versions: 0.8.19
+          job-name: "Certora Run"
+          certora-key: ${{ secrets.CERTORAKEY }}
+          compilation-steps-only: true
         env:
-          CERTORAKEY: ${{ secrets.CERTORAKEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
