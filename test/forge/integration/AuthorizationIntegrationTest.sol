@@ -6,6 +6,7 @@ import "../BaseTest.sol";
 contract AuthorizationIntegrationTest is BaseTest {
     function testSetAuthorization(address addressFuzz) public {
         vm.assume(addressFuzz != address(this));
+        vm.assume(addressFuzz != BORROWER); // it was authorized in the setUp function
 
         morpho.setAuthorization(addressFuzz, true);
 
@@ -17,6 +18,7 @@ contract AuthorizationIntegrationTest is BaseTest {
     }
 
     function testAlreadySet(address addressFuzz) public {
+        vm.assume(addressFuzz != BORROWER); // it was authorized in the setUp function
         vm.expectRevert(bytes(ErrorsLib.ALREADY_SET));
         morpho.setAuthorization(addressFuzz, false);
 
