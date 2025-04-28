@@ -45,6 +45,7 @@ contract BorrowIntegrationTest is BaseTest {
 
     function testBorrowUnauthorized(address supplier, address attacker, uint256 amount) public {
         vm.assume(supplier != attacker && supplier != address(0));
+        vm.assume(supplier != ONBEHALF); // Authorized in setUp function
         (uint256 amountCollateral, uint256 amountBorrowed,) = _boundHealthyPosition(amount, amount, ORACLE_PRICE_SCALE);
 
         _supply(amountBorrowed);

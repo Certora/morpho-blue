@@ -44,6 +44,7 @@ contract WithdrawCollateralIntegrationTest is BaseTest {
 
     function testWithdrawCollateralUnauthorized(address attacker, uint256 amount) public {
         vm.assume(attacker != SUPPLIER);
+        vm.assume(attacker != BORROWER); // BORROWER is authorized in the setUp function
         amount = bound(amount, 1, MAX_COLLATERAL_ASSETS);
 
         collateralToken.setBalance(SUPPLIER, amount);

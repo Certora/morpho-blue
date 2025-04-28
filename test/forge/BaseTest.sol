@@ -113,6 +113,10 @@ contract BaseTest is Test {
         morpho.setAuthorization(BORROWER, true);
         vm.stopPrank();
 
+        setLltv();
+    }
+
+    function setLltv() public {
         _setLltv(DEFAULT_TEST_LLTV);
     }
 
