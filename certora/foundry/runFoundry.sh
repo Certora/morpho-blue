@@ -30,7 +30,7 @@ failed_files=()
 # Loop through each .conf file
 for conf_file in $conf_files; do
     echo "Running certoraRun on $conf_file..."
-    if certoraRun "$conf_file" --server production --prover_version master; then
+    if certoraRun "$conf_file" --server production --prover_version naftali/add_foundry_roll_cheatcode "$@"; then
         echo "Successfully processed $conf_file"
         ((success_count++))
     else
