@@ -40,6 +40,7 @@ contract CreateMarketIntegrationTest is BaseTest {
         marketParamsFuzz.irm = address(irm);
         marketParamsFuzz.lltv = _boundValidLltv(marketParamsFuzz.lltv);
         Id marketParamsFuzzId = marketParamsFuzz.id();
+        vm.assume(marketParamsFuzz.lltv != DEFAULT_TEST_LLTV); // This one is enabled in the setUp function
 
         vm.startPrank(OWNER);
         if (!morpho.isLltvEnabled(marketParamsFuzz.lltv)) morpho.enableLltv(marketParamsFuzz.lltv);
